@@ -6,12 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BaiThiVKT.Models;
+using BaiThiVKT.Models.Process;
 
 namespace BaiThiVKT.Controllers
 {
     public class VKTCau3Controller : Controller
     {
         private readonly ApplicationDbContext _context;
+        
+        StringProcess StrPro = new StringProcess();
 
         public VKTCau3Controller(ApplicationDbContext context)
         {
@@ -59,6 +62,7 @@ namespace BaiThiVKT.Controllers
         {
             if (ModelState.IsValid)
             {
+                vKTCau3.StudentName =StrPro.AddToUpper(vKTCau3.StudentName);
                 _context.Add(vKTCau3);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
